@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation       This suite tests the Automation Practice website
-Resource            resources/automationPractice_resource.robot
-Test Setup          open browser
-Test Teardown       close browser
+Resource            ../resources/automationPractice_resource.robot
+Test Setup          open to browser
+Test Teardown       close to browser
 
 *** Test Cases ***
 Caso de Teste 01 - Purchase a product
@@ -10,7 +10,6 @@ Caso de Teste 01 - Purchase a product
     ...                 using Faker to generate registration data
     
     access website Automation Practice
-    Verificar se o título da página fica "My Store"
     check the page title is "My Store"
     fill the field "Blouse"
     click button magnifying glass
@@ -20,4 +19,3 @@ Caso de Teste 01 - Purchase a product
     summary proceed to checkout
     create email
     fill in register
-    Sleep   5
