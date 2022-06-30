@@ -7,11 +7,11 @@ ${BROWSER}                  chrome
 ${URL}                      http://automationpractice.com/index.php
 
 *** Keywords ***
-open browser
+open to browser
     Open Browser    browser=${BROWSER}
     Maximize Browser Window
 
-close browser
+close to browser
     Close Browser
 
 access website Automation Practice
@@ -33,7 +33,6 @@ add cart
     Click Element           name=Submit
 
 proceed to checkout
-    Sleep   5
     Wait Until Element Is Visible       css=#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a
     Click Element                       css=#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a
 
@@ -46,7 +45,6 @@ create email
     Click Element                       id=SubmitCreate
 
 fill in register
-    Sleep   5
     Wait Until Element Is Visible       id=id_gender1
     Click Element                       id=id_gender1
     ${FIRST_NAME}                       FakerLibrary.FirstName
