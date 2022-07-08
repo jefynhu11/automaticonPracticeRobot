@@ -3,7 +3,7 @@ Library     SeleniumLibrary
 Library     FakerLibrary
 
 *** Variables ***
-${BROWSER}                  chrome
+${BROWSER}                  firefox
 ${URL}                      http://automationpractice.com/index.php
 
 *** Keywords ***
@@ -63,8 +63,20 @@ fill in register
     Select From List By Value           id=id_state                         2
     ${POSTAL}                           FakerLibrary.Postalcode
     Input Text                          id=postcode                         ${POSTAL}
-    ${PHONE_MOBILE}                     FakerLibrary.Phone Number
-    Input Text                          id=phone_mobile                     ${PHONE_MOBILE}
+    Input Text                          id=phone_mobile                     99999
     ${GERAR_EMAIL_REFERENCE}            FakerLibrary.Email
     Input Text                          id=alias                            ${GERAR_EMAIL_REFERENCE}
     Click Element                       id=submitAccount
+
+addresses and proceed to checkout
+    Click Element                       name=processAddress
+
+click box terms of service and proceed to checkout
+    Click Element                       id=cgv
+    Click Element                       name=processCarrier
+
+payment method
+    Click Element                       css=.payment_module .bankwire
+
+confirm payment
+    Click Element                       css=#cart_navigation .button
