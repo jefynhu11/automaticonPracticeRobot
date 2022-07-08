@@ -19,3 +19,7 @@ Caso de Teste 01 - Purchase a product
     summary proceed to checkout
     create email
     fill in register
+    addresses and proceed to checkout
+    click box terms of service and proceed to checkout
+    payment method
+    confirm payment
