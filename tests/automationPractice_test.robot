@@ -1,11 +1,12 @@
 *** Settings ***
 Documentation       This suite tests the Automation Practice website
-Resource            ../resources/automationPractice_resource.robot
-Test Setup          open to browser
-Test Teardown       close to browser
+Resource            ../resources/automationPractice_resource.resource
+Resource            ../resources/config.resource
+Test Setup          browser open
+Test Teardown       browser close
 
 *** Test Cases ***
-Caso de Teste 01 - Purchase a product
+Test case 01 - Purchase a product
     [Documentation]     This test verifies by performing successful validation at the end and
     ...                 using Faker to generate registration data
     
