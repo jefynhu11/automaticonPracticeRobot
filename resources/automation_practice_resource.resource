@@ -1,79 +1,59 @@
 *** Settings ***
-Library     SeleniumLibrary
-Library     FakerLibrary
-Resource            ../resources/config.resource
+Resource            ../page_objects/home_page.resource
+Resource            ../page_objects/product_page.resource
+Resource            ../page_objects/register_page.resource
+Resource            ../page_objects/address_terms_page.resource
+Resource            ../page_objects/payment_confirm_page.resource
 
 *** Keywords ***
-browser open
-    Open Browser    browser=${BROWSER}
-    Maximize Browser Window
+check the page title is "${TITULO}"
+    Title Should Be         title=${TITULO}
 
-browser close
-    Close Browser
+fill the field "${TEXTO}"
+    Input Text              ${FILL_SEARCH_FIELD}                ${TEXTO}
 
-access website Automation Practice
-    Go To                   url=${URL}
+click button magnifying glass
+    Click Element           ${BUTTON_MAGNIFYING_GLASS}
 
-# check the page title is "${TITULO}"
-#     Title Should Be         title=${TITULO}
+select a product, add cart and proceed to checkout
+    Click Element                       ${SELECT_PRODUCT}
+    Click Element                       ${ADD_CART}
+    Wait Until Element Is Visible       ${PROCEED_TO_CHECKOUT}
+    Click Element                       ${PROCEED_TO_CHECKOUT}
+    Click Element                       ${SUMMARY_PROCEED}
 
-# fill the field "${TEXTO}"
-#     Input Text              id=search_query_top             ${TEXTO}
-
-# click button magnifying glass
-#     Click Element           name=submit_search
-
-select a product
-    Click Element           css=#center_column > ul > li > div > div.left-block > div > a.product_img_link > img
-
-add cart
-    Click Element           name=Submit
-
-proceed to checkout
-    Wait Until Element Is Visible       css=#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a
-    Click Element                       css=#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a
-
-summary proceed to checkout
-    Click Element                       css=#center_column > p.cart_navigation.clearfix > a.button.btn.btn-default.standard-checkout.button-medium
-
-create email
+create email and fill in register
     ${GERAR_EMAIL}                      FakerLibrary.Email
-    Input Text                          id=email_create                     ${GERAR_EMAIL}
-    Click Element                       id=SubmitCreate
+    Input Text                          ${CREATE_EMAIL}                     ${GERAR_EMAIL}
+    Click Element                       ${BUTTON_CREATE_EMAIL}
+    Wait Until Element Is Visible       ${TITLE_MR}
+    Click Element                       ${TITLE_MR}
+    ${FIRST_NAME_FAKER}                 FakerLibrary.FirstName
+    Input Text                          ${FIRST_NAME}                       ${FIRST_NAME_FAKER}
+    ${LAST_NAME_FAKER}                  FakerLibrary.LastName
+    Input Text                          ${LAST_NAME}                        ${LAST_NAME_FAKER}
+    ${PASSWORD_FAKER}                   FakerLibrary.Password
+    Input Text                          ${PASSWORD}                         ${PASSWORD_FAKER}
+    Select From List By Value           ${SELECT_DAY}                       3
+    Select From List By Value           ${SELECT_MONTH}                     11
+    Select From List By Value           ${SELECT_YEAR}                      1992
+    ${ADDRESS_FAKER}                    FakerLibrary.Address
+    Input Text                          ${ADDRESS1}                         ${ADDRESS_FAKER}
+    ${CITY_FAKER}                       FakerLibrary.City
+    Input Text                          ${CITY}                             ${CITY_FAKER} 
+    Select From List By Value           ${SELECT_STATE}                     2
+    ${POSTAL_FAKER}                     FakerLibrary.Postalcode
+    Input Text                          ${POSTAL}                           ${POSTAL_FAKER}
+    Input Text                          ${PHONE_MOBILE}                     99999
+    ${GERAR_EMAIL_REFERENCE_FAKER}      FakerLibrary.Email
+    Input Text                          ${EMAIL_REFERENCE}                  ${GERAR_EMAIL_REFERENCE_FAKER}
+    Click Element                       ${BUTTON_SUBMIT_ACCOUNT}
 
-fill in register
-    Wait Until Element Is Visible       id=id_gender1
-    Click Element                       id=id_gender1
-    ${FIRST_NAME}                       FakerLibrary.FirstName
-    Input Text                          id=customer_firstname               ${FIRST_NAME}
-    ${LAST_NAME}                        FakerLibrary.LastName
-    Input Text                          id=customer_lastname                ${LAST_NAME}
-    ${PASSWORD}                         FakerLibrary.Password
-    Input Text                          id=passwd                           ${PASSWORD}
-    Select From List By Value           id=days                             3
-    Select From List By Value           id=months                           11
-    Select From List By Value           id=years                            1992
-    ${ADDRESS}                          FakerLibrary.Address
-    Input Text                          id=address1                         ${ADDRESS}
-    ${CITY}                             FakerLibrary.City
-    Input Text                          id=city                             ${CITY} 
-    Select From List By Value           id=id_state                         2
-    ${POSTAL}                           FakerLibrary.Postalcode
-    Input Text                          id=postcode                         ${POSTAL}
-    Input Text                          id=phone_mobile                     99999
-    ${GERAR_EMAIL_REFERENCE}            FakerLibrary.Email
-    Input Text                          id=alias                            ${GERAR_EMAIL_REFERENCE}
-    Click Element                       id=submitAccount
+addresses, click box terms of service and proceed to checkout
+    Click Element                       ${BUTTON_ADDRESS}
+    Click Element                       ${CLICK_BOX}
+    Click Element                       ${BUTTON_PROCESS_CARRIER}
 
-addresses and proceed to checkout
-    Click Element                       name=processAddress
-
-click box terms of service and proceed to checkout
-    Click Element                       id=cgv
-    Click Element                       name=processCarrier
-
-payment method
-    Click Element                       css=.payment_module .bankwire
-
-confirm payment
-    Click Element                       css=#cart_navigation .button
+payment method and confirm payment
+    Click Element                       ${PAYMENT_BANKWIRE}
+    Click Element                       ${CONFIRM_PAYMENT}
