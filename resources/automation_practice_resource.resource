@@ -1,6 +1,7 @@
 *** Settings ***
 Library     SeleniumLibrary
 Library     FakerLibrary
+Resource            ../resources/config.resource
 
 *** Keywords ***
 browser open
@@ -13,14 +14,14 @@ browser close
 access website Automation Practice
     Go To                   url=${URL}
 
-check the page title is "${TITULO}"
-    Title Should Be         title=${TITULO}
+# check the page title is "${TITULO}"
+#     Title Should Be         title=${TITULO}
 
-fill the field "${TEXTO}"
-    Input Text              id=search_query_top             ${TEXTO}
+# fill the field "${TEXTO}"
+#     Input Text              id=search_query_top             ${TEXTO}
 
-click button magnifying glass
-    Click Element           name=submit_search
+# click button magnifying glass
+#     Click Element           name=submit_search
 
 select a product
     Click Element           css=#center_column > ul > li > div > div.left-block > div > a.product_img_link > img

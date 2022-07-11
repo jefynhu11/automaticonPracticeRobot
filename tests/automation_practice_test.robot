@@ -2,6 +2,8 @@
 Documentation       This suite tests the Automation Practice website
 Resource            ../resources/automationPractice_resource.resource
 Resource            ../resources/config.resource
+Resource            
+# Variables            ../page_objects/page.robot
 Test Setup          browser open
 Test Teardown       browser close
 
